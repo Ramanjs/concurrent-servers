@@ -3,8 +3,9 @@
 #include <sys/socket.h>
 #include <arpa/inet.h>
 #include <stdbool.h>
+#include <pthread.h>
 
-int main(int argc, char** argv) {
+int main() {
   int server_socket, client_socket, addr_size;
   addr_size = sizeof(struct sockaddr_in);
 
@@ -29,7 +30,10 @@ int main(int argc, char** argv) {
 
     /*printf("Connected!\n");*/
 
-    handle_connection(client_socket);
+    pthread_t thread;
+    int *p_client_socket = malloc(sizeof(int));
+    *p_client_socket = client_socket;
+    pthread_create(&thread, NULL, handle_connection, p_client_socket);
   }
 
   return 0;
