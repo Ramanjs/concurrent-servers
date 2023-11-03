@@ -12,6 +12,7 @@
 #define MAX_CLIENTS 4000
 
 int check(int exp, const char* msg);
+long factorial(uint64_t n);
 void *handle_connection(void* p_client_socket);
 
 #endif /* ifndef UTILS_H */
