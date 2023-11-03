@@ -1,5 +1,5 @@
 CC=gcc
-BINS=fork-server thread-server select-server poll-server
+BINS=fork-server thread-server select-server poll-server epoll-server
 
 all: $(BINS)
 
@@ -14,6 +14,9 @@ select-server: select-server.c utils.c
 
 poll-server: poll-server.c utils.c
 	$(CC) poll-server.c utils.c -o poll-server
+
+epoll-server: epoll-server.c utils.c
+	$(CC) epoll-server.c utils.c -o epoll-server
 
 clean:
 	rm -rf $(BINS)
