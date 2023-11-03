@@ -20,7 +20,8 @@ long factorial(uint64_t n) {
   return fact;
 }
 
-void handle_connection(int client_socket) {
+void *handle_connection(void *p_client_socket) {
+    int client_socket = *((int*)p_client_socket);
     char buffer[BUFFER_SIZE];
     char result[20];
     int valread;
@@ -41,4 +42,5 @@ void handle_connection(int client_socket) {
     }
 
     close(client_socket);
+    return NULL;
 }

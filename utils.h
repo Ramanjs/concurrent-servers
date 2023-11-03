@@ -12,6 +12,6 @@
 #define MAX_CLIENTS 4000
 
 int check(int exp, const char* msg);
-void handle_connection(int client_socket);
+void *handle_connection(void* p_client_socket);
 
 #endif /* ifndef UTILS_H */
