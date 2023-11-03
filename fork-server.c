@@ -1,6 +1,7 @@
 #include "utils.h"
 
 #include <arpa/inet.h>
+#include <sys/wait.h>
 
 int main() {
     int server_socket, client_socket, addr_size;
@@ -28,10 +29,11 @@ int main() {
 
         if (fork() == 0) {
             close(server_socket);
-            handle_connection(client_socket);
-            return 0;
+            handle_connection(&client_socket);
+            exit(0);
         } else {
             close(client_socket);
+            wait(NULL);
         }
     }
 
