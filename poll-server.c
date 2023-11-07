@@ -3,6 +3,7 @@
 #include <arpa/inet.h>
 #include <stdbool.h>
 #include <poll.h>
+#include <sys/ioctl.h>
 
 bool handle_poll_connection(int client_socket);
 
@@ -65,6 +66,8 @@ bool handle_poll_connection(int client_socket) {
     int valread;
     uint64_t n;
 
+    int iMode = 0;
+    ioctl(client_socket, FIONBIO, &iMode);
     valread = read(client_socket, buffer, BUFFER_SIZE);
     if (valread > 0) {
         n = atoi(buffer);

@@ -4,8 +4,9 @@
 #include <arpa/inet.h>
 #include <stdbool.h>
 #include <sys/epoll.h>
+#include <sys/ioctl.h>
 
-#define MAX_EVENTS 10 // Maximum number of events to be returned by epoll_wait
+#define MAX_EVENTS 4000 // Maximum number of events to be returned by epoll_wait
 
 bool handle_epoll_connection(struct epoll_event event);
 
@@ -70,6 +71,8 @@ bool handle_epoll_connection(struct epoll_event event) {
     int valread;
     uint64_t n;
 
+    int iMode = 0;
+    ioctl(event.data.fd, FIONBIO, &iMode);
     valread = read(event.data.fd, buffer, BUFFER_SIZE);
     if (valread > 0) {
         n = atoi(buffer);
